@@ -78,13 +78,16 @@ DATABASES = {
 
 DATABASE_URL = os.getenv('DATABASE_URL')
 if DATABASE_URL:
-    # Strip channel_binding param that older psycopg2 doesn't support
+    # Strip channel_binding param if present
     DATABASE_URL = DATABASE_URL.replace('&channel_binding=require', '').replace('?channel_binding=require&', '?').replace('?channel_binding=require', '')
     DATABASES['default'] = dj_database_url.parse(
         DATABASE_URL,
         conn_max_age=600,
         conn_health_checks=True,
     )
+    # Force use of psycopg3 (psycopg)
+    if 'ENGINE' in DATABASES['default'] and 'postgresql' in DATABASES['default']['ENGINE']:
+        DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
