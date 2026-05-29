@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Shipping &amp; Policies – Dar Safeera</title>
+<meta name="description" content="View shipping rules, custom dimensions, and the refund policy for Dar Safeera luxury abayas." />
+{% endblock %}
+
+{% block content %}
+<header class="page-header" aria-label="Policies Page Header">
+  <div class="container">
+    <span class="page-header__subtitle">Customer Care</span>
+    <h1 class="page-header__title">Shipping &amp; Policies</h1>
+    <div class="page-header__divider"></div>
+  </div>
+</header>
+
+<section class="policies-section" aria-label="Store guidelines">
+  <div class="container">
+    <div class="policies-wrapper">
+      
+      <div class="policy-card">
+        <h2 class="policy-card__title">WhatsApp Ordering Flow</h2>
+        <p class="policy-card__text">
+          Because Dar Safeera specializes in bespoke finishes and limited fabric editions, all orders are processed and finalized individually on WhatsApp. This allows us to double-check custom sleeve or length requirements, confirm exact dispatch timelines, and ensure absolute personal satisfaction before payment is made.
+        </p>
+      </div>
+
+      <div class="policy-card">
+        <h2 class="policy-card__title">Refund &amp; Exchange Policy</h2>
+        <div class="alert-box alert-box--warning">
+          <p><strong>Please Note:</strong> Due to the exclusive, custom-tailored runs and limited availability of premium textiles, Dar Safeera operates on a strict <strong>No Refund and No Exchange</strong> policy.</p>
+        </div>
+        <p class="policy-card__text">
+          We strongly recommend that customers carefully review the size guidelines and reach out to our WhatsApp support for detailed dimension checks before finalized payments. By initiating payment, you acknowledge and agree to this policy.
+        </p>
+      </div>
+
+      <div class="policy-card">
+        <h2 class="policy-card__title">Shipping &amp; Delivery</h2>
+        <p class="policy-card__text">
+          We ship nationwide within Nigeria and offer select international courier dispatches.
+        </p>
+        <ul class="policy-list">
+          <li><strong>Abuja Deliveries:</strong> 1–2 business days from order confirmation.</li>
+          <li><strong>Lagos Deliveries:</strong> 2–3 business days from order confirmation.</li>
+          <li><strong>Other States:</strong> 3–5 business days via reliable domestic couriers.</li>
+          <li><strong>International:</strong> Timelines and fees calculated individually based on destination.</li>
+        </ul>
+        <p class="policy-card__text">
+          Tracking references are shared directly via WhatsApp as soon as package parcels are picked up by our logistics providers.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock %}

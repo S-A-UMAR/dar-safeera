@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Our Story – Dar Safeera</title>
+<meta name="description" content="Discover the origins and vision of Dar Safeera. Premium modest wear handcrafting luxury abayas in Abuja & Lagos, Nigeria." />
+{% endblock %}
+
+{% block content %}
+<header class="page-header" aria-label="About Page Header">
+  <div class="container">
+    <span class="page-header__subtitle">About the Brand</span>
+    <h1 class="page-header__title">Our Story</h1>
+    <div class="page-header__divider"></div>
+  </div>
+</header>
+
+<section class="about-story" aria-label="Brand history">
+  <div class="container">
+    <div class="about-story__grid">
+      
+      <div class="about-story__content">
+        <h2 class="about-story__heading">Effortless Elegance, Reimagined</h2>
+        <p class="about-story__lead">
+          Founded by Safeera Abba, Dar Safeera represents a harmonious convergence of rich cultural heritage and contemporary modesty. 
+        </p>
+        <p class="about-story__text">
+          Operating out of the vibrant cities of Abuja and Lagos, Nigeria, Dar Safeera was established with a singular mission: to provide the modern Muslim woman with luxurious modest wear that is as comfortable as it is exquisitely elegant.
+        </p>
+        <p class="about-story__text">
+          Every abaya we produce is the result of continuous design iteration, curated fabric sourcing, and detailed handcrafting. We produce our pieces in highly exclusive, limited editions, ensuring our clients receive a garment that stands out for its individuality and high fashion styling.
+        </p>
+        
+        <div class="about-pillars">
+          <div class="about-pillar">
+            <h4 class="about-pillar__title">Exclusivity</h4>
+            <p class="about-pillar__text">No mass manufacturing. We focus on small collections that ensure absolute quality control and unique styling.</p>
+          </div>
+          <div class="about-pillar">
+            <h4 class="about-pillar__title">Premium Materials</h4>
+            <p class="about-pillar__text">From lightweight crêpe to premium silk blends, we select fabrics for their exquisite drape and breathability.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-story__visual">
+        <img src="{% static 'images/placeholders/about_hero.jpg' %}" alt="Dar Safeera luxury modest wear" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.style.display='none'; document.getElementById('about-placeholder-box').style.display='flex';" />
+        <div class="about-story__img-placeholder" id="about-placeholder-box" style="display: none; height: 100%; align-items: center; justify-content: center;">
+          <span class="about-story__brand-badge">Dar Safeera</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,155 @@
+/* ── DAR SAFEERA CUSTOM ADMIN STYLES ─────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap');
+
+/* Login Page Styling */
+body.login-page {
+  background-color: #FAF7F2 !important;
+  background-image: radial-gradient(circle, rgba(201, 169, 110, 0.05) 0%, rgba(250, 247, 242, 0) 100%) !important;
+  font-family: 'Inter', sans-serif !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* Adjust Massive Logo to Perfect Luxury Size */
+.login-box {
+  width: 420px !important;
+}
+
+.login-logo, 
+.login-box .login-logo {
+  margin-bottom: 24px !important;
+  display: flex;
+  justify-content: center;
+}
+
+.login-box img, 
+.login-box .login-logo img, 
+.login-logo a img {
+  max-height: 130px !important;
+  width: 130px !important;
+  height: 130px !important;
+  border-radius: 50% !important;
+  border: 2px solid #C9A96E !important;
+  padding: 3px !important;
+  background-color: #FFFFFF !important;
+  object-fit: cover !important;
+  box-shadow: 0 8px 24px rgba(201, 169, 110, 0.15) !important;
+  margin: 0 auto !important;
+}
+
+/* Hide redundant titles under logo */
+.login-box .login-logo a b,
+.login-box .login-logo a span {
+  display: none !important;
+}
+
+/* Form Container Card */
+.login-box .card {
+  background-color: #F5F0E8 !important;
+  border: 1px solid rgba(201, 169, 110, 0.3) !important;
+  border-radius: 0px !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.04) !important;
+  overflow: hidden;
+}
+
+.login-card-body {
+  background-color: transparent !important;
+  color: #2C2C2C !important;
+  padding: 40px 30px 35px !important;
+}
+
+.login-box .login-box-msg {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: 22px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.05em !important;
+  color: #2C2C2C !important;
+  margin-bottom: 24px !important;
+  padding: 0 !important;
+}
+
+/* Input Fields styling */
+.login-box .input-group {
+  margin-bottom: 20px !important;
+}
+
+.login-box .form-control {
+  border: 1px solid rgba(201, 169, 110, 0.3) !important;
+  border-radius: 0px !important;
+  background-color: #FFFFFF !important;
+  color: #2C2C2C !important;
+  height: 46px !important;
+  font-size: 14px !important;
+  padding-left: 16px !important;
+}
+
+.login-box .form-control:focus {
+  border-color: #C9A96E !important;
+  box-shadow: none !important;
+}
+
+.login-box .input-group-append .input-group-text {
+  background-color: #FFFFFF !important;
+  border: 1px solid rgba(201, 169, 110, 0.3) !important;
+  border-left: none !important;
+  border-radius: 0px !important;
+  color: #C9A96E !important;
+  width: 46px !important;
+  justify-content: center !important;
+}
+
+/* Error alerts inside login card */
+.login-box .alert-danger, 
+.login-box .callout.callout-danger {
+  background-color: #FFF5F2 !important;
+  border: 1px solid #FFDCD1 !important;
+  border-left: 4px solid #E06C47 !important;
+  color: #E06C47 !important;
+  border-radius: 0px !important;
+  font-size: 13px !important;
+  margin-bottom: 20px !important;
+  padding: 12px 16px !important;
+  text-shadow: none !important;
+}
+
+/* Login Action Button */
+.login-box .btn-primary {
+  background-color: #C9A96E !important;
+  border-color: #C9A96E !important;
+  color: #FFFFFF !important;
+  border-radius: 0px !important;
+  height: 46px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  font-size: 13px !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  box-shadow: none !important;
+  margin-top: 10px !important;
+}
+
+.login-box .btn-primary:hover {
+  background-color: #2C2C2C !important;
+  border-color: #2C2C2C !important;
+}
+
+/* Brand styling inside actual admin layout */
+.brand-link {
+  border-bottom: 1px solid rgba(201, 169, 110, 0.15) !important;
+  background-color: #2C2C2C !important;
+}
+
+.brand-link img {
+  border-radius: 50% !important;
+  border: 1px solid #C9A96E !important;
+}
+
+.brand-link .brand-text {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.1em !important;
+  color: #FAF7F2 !important;
+}

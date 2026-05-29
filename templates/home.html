@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero" aria-label="Welcome to Dar Safeera">
+  <div class="hero__bg-overlay"></div>
+  <div class="hero__content">
+    <span class="hero__subtitle">Dar Safeera Abayas</span>
+    <h1 class="hero__title">Effortless Elegance,<br>Crafted for You</h1>
+    <p class="hero__desc">Discover our curated collection of luxury abayas blending traditional craftsmanship with contemporary style.</p>
+    <a href="{% url 'shop' %}" class="btn btn--gold">Explore Collection</a>
+  </div>
+</section>
+
+<!-- Brand Values -->
+<section class="values" aria-label="Our brand pillars">
+  <div class="container">
+    <div class="values__grid">
+      <div class="value-card">
+        <div class="value-card__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3 class="value-card__title">Premium Fabric</h3>
+        <p class="value-card__text">We source only the finest premium crepes, silks, and chiffons for a luxurious feel and fluid drape.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-card__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3 class="value-card__title">Exceptional Finish</h3>
+        <p class="value-card__text">Each piece is crafted with meticulous attention to detail, featuring immaculate hand-finished stitching.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-card__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8l4 4-4 4M8 12h8"/></svg>
+        </div>
+        <h3 class="value-card__title">Effortless Elegance</h3>
+        <p class="value-card__text">Classic silhouettes redesigned with a modern touch, allowing you to move with grace and sophistication.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Products -->
+<section class="featured-products" aria-label="Featured Collection">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-header__subtitle">Curated Highlights</span>
+      <h2 class="section-header__title">Featured Pieces</h2>
+      <div class="section-header__divider"></div>
+    </div>
+
+    <div class="product-grid">
+      {% for product in featured_products %}
+        <article class="product-card">
+          <a href="{% url 'product_detail' product.slug %}" class="product-card__img-link">
+            <div class="product-card__img-wrapper">
+              {% if product.get_primary_image %}
+                <img src="{{ product.get_primary_image.image.url }}?v={{ product.updated_at.timestamp }}" alt="{{ product.get_primary_image.alt_text }}" class="product-card__img" loading="lazy" />
+              {% else %}
+                <div class="product-card__img-placeholder">
+                  <span>Dar Safeera</span>
+                </div>
+              {% endif %}
+              <div class="product-card__badge">Featured</div>
+            </div>
+          </a>
+          <div class="product-card__info">
+            <span class="product-card__category">{{ product.category.name }}</span>
+            <h3 class="product-card__title">
+              <a href="{% url 'product_detail' product.slug %}">{{ product.name }}</a>
+            </h3>
+            <p class="product-card__price">{{ product.formatted_price }}</p>
+            <div class="product-card__actions">
+              <a href="{% url 'product_detail' product.slug %}" class="btn btn--outline btn--sm">View Details</a>
+            </div>
+          </div>
+        </article>
+      {% empty %}
+        <div class="empty-state">
+          <p>No featured products available at the moment.</p>
+          <a href="{% url 'shop' %}" class="btn btn--gold">Browse Shop</a>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="featured-products__footer">
+      <a href="{% url 'shop' %}" class="btn btn--outline">View Entire Shop</a>
+    </div>
+  </div>
+</section>
+
+<!-- Brand Banner -->
+<section class="brand-banner" aria-label="Dar Safeera lifestyle">
+  <div class="brand-banner__grid">
+    <div class="brand-banner__image-side">
+      <img src="{% static 'images/placeholders/safeera.jpg' %}" alt="Dar Safeera Modesty Banner" class="brand-banner__img" />
+    </div>
+    <div class="brand-banner__content-side">
+      <div class="brand-banner__text-wrapper">
+        <span class="brand-banner__subtitle">Our Core Philosophy</span>
+        <h2 class="brand-banner__title">Exquisite modesty designed for the discerning modern woman</h2>
+        <p class="brand-banner__text">
+          Dar Safeera was born out of a desire to create modest wear that does not compromise on luxury or style. Designed in Nigeria for women globally, our collections are released in limited runs to ensure exclusivity and unmatched quality.
+        </p>
+        <a href="{% url 'about' %}" class="btn btn--gold">Our Story</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

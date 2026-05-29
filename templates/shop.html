@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Shop Luxury Abayas – Dar Safeera</title>
+<meta name="description" content="Browse the full collection of luxury Dar Safeera abayas. Sort by categories and colors. Authentic modesty crafted for effortless elegance." />
+{% endblock %}
+
+{% block content %}
+<header class="page-header" aria-label="Shop Page Header">
+  <div class="container">
+    <span class="page-header__subtitle">Collection</span>
+    <h1 class="page-header__title">The Abaya Shop</h1>
+    <div class="page-header__divider"></div>
+  </div>
+</header>
+
+<div class="shop-layout">
+  <div class="container">
+    <!-- Category, Price & Sort Filter Bar -->
+    <div class="filter-section">
+      <div class="filter-bar">
+        <div class="filter-group">
+          <span class="filter-label">Categories:</span>
+          <div class="filter-buttons">
+            <a href="{% url 'shop' %}" class="filter-btn {% if not selected_category %}filter-btn--active{% endif %}">All</a>
+            {% for cat in categories %}
+              <a href="{% url 'shop' %}?category={{ cat.slug }}" class="filter-btn {% if selected_category.slug == cat.slug %}filter-btn--active{% endif %}">{{ cat.name }}</a>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <span class="filter-label">Price Range:</span>
+          <div class="filter-buttons js-price-filters">
+            <button class="filter-btn filter-btn--sm filter-btn--active" data-price="all">All Prices</button>
+            <button class="filter-btn filter-btn--sm" data-price="under-50">Under ₦50k</button>
+            <button class="filter-btn filter-btn--sm" data-price="50-100">₦50k - ₦100k</button>
+            <button class="filter-btn filter-btn--sm" data-price="over-100">Over ₦100k</button>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <span class="filter-label">Sort By:</span>
+          <select id="price-sort" class="sort-select" aria-label="Sort products by price">
+            <option value="default">Newest</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="product-grid" id="shop-product-grid">
+      {% for product in products %}
+        <article class="product-card" 
+                 data-price="{{ product.price }}"
+                 data-category="{{ product.category.slug }}"
+                 data-date="{{ product.created_at|date:'U' }}">
+          <a href="{% url 'product_detail' product.slug %}" class="product-card__img-link">
+            <div class="product-card__img-wrapper">
+              {% if product.get_primary_image %}
+                <img src="{{ product.get_primary_image.image.url }}?v={{ product.updated_at.timestamp }}" alt="{{ product.get_primary_image.alt_text }}" class="product-card__img" loading="lazy" />
+              {% else %}
+                <div class="product-card__img-placeholder">
+                  <span>Dar Safeera</span>
+                </div>
+              {% endif %}
+            </div>
+          </a>
+          <div class="product-card__info">
+            <span class="product-card__category">{{ product.category.name }}</span>
+            <h3 class="product-card__title">
+              <a href="{% url 'product_detail' product.slug %}">{{ product.name }}</a>
+            </h3>
+            <p class="product-card__price">{{ product.formatted_price }}</p>
+            <div class="product-card__actions">
+              <a href="{% url 'product_detail' product.slug %}" class="btn btn--outline btn--sm btn--block">View Details</a>
+            </div>
+          </div>
+        </article>
+      {% empty %}
+        <div class="empty-state">
+          <p>No products found in this category.</p>
+          <a href="{% url 'shop' %}" class="btn btn--gold">Clear Filters</a>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="empty-state hidden" id="no-filtered-results">
+      <p>No items match the selected price range.</p>
+      <button class="btn btn--gold" id="reset-price-filter">Show All Prices</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
