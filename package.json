@@ -1,0 +1,7 @@
+{
+  "name": "darsafeera",
+  "version": "1.0.0",
+  "scripts": {
+    "vercel-build": "./build.sh"
+  }
+}
