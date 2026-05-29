@@ -12,12 +12,13 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-dev-key-change-in-producti
 # In production (VERCEL=1) DEBUG must be False
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-# Allow all Vercel preview/production domains automatically
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
-ALLOWED_HOSTS += ['.vercel.app', 'localhost', '127.0.0.1']
+# Allow all hosts for Vercel deployment
+ALLOWED_HOSTS = ['*']
 
 CSRF_TRUSTED_ORIGINS = [
     'https://*.vercel.app',
+    'https://darsafeera-taupe.vercel.app',
+    'http://*.vercel.app',
 ]
 
 INSTALLED_APPS = [
