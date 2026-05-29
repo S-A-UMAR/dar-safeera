@@ -129,15 +129,14 @@ class Command(BaseCommand):
 
             if os.path.exists(src):
                 with open(src, 'rb') as f:
-                    product_image = ProductImage(
+                    product_image = ProductImage.objects.create(
                         product=product,
                         is_primary=True,
                         color=data['primary_color'],
                         alt_text=f'{product.name} – {data["primary_color"]} variant',
                         order=0
                     )
-                    product_image.image.save(dst_name, File(f))
-                    product_image.save()
+                    product_image.image.save(dst_name, File(f), save=True)
                 self.stdout.write(f'  ✅ Created: {product.name} (Primary: {data["primary_color"]})')
             else:
                 self.stdout.write(
@@ -151,15 +150,14 @@ class Command(BaseCommand):
 
                 if os.path.exists(src_extra):
                     with open(src_extra, 'rb') as f:
-                        product_image = ProductImage(
+                        product_image = ProductImage.objects.create(
                             product=product,
                             is_primary=False,
                             color=extra['color'],
                             alt_text=f'{product.name} – {extra["color"]} variant',
                             order=order_idx
                         )
-                        product_image.image.save(dst_extra_name, File(f))
-                        product_image.save()
+                        product_image.image.save(dst_extra_name, File(f), save=True)
                     self.stdout.write(f'     └─ Added extra variant image for: {extra["color"]}')
 
         self.stdout.write(self.style.SUCCESS('\n✨ Done! Visit http://127.0.0.1:8000 to see your store.'))

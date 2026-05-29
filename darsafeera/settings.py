@@ -114,7 +114,6 @@ if CLOUDINARY_URL:
     CLOUDINARY_STORAGE = {
         'PREFIX': 'darsafeera'
     }
-    MEDIA_URL = 'https://res.cloudinary.com/'
 else:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = BASE_DIR / 'media'
