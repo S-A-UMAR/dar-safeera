@@ -1,7 +1,7 @@
 import os
-import shutil
 from django.core.management.base import BaseCommand
 from django.conf import settings
+from django.core.files import File
 from catalog.models import Category, Product, ProductImage
 
 
@@ -101,12 +101,6 @@ class Command(BaseCommand):
         Category.objects.all().delete()
 
         placeholder_dir = os.path.join(settings.BASE_DIR, 'static', 'images', 'placeholders')
-        media_product_dir = os.path.join(settings.MEDIA_ROOT, 'products')
-        
-        # Clean media directory
-        if os.path.exists(media_product_dir):
-            shutil.rmtree(media_product_dir)
-        os.makedirs(media_product_dir, exist_ok=True)
 
         created_categories = {}
         for data in PRODUCTS:
@@ -131,19 +125,19 @@ class Command(BaseCommand):
 
             # 1. Add primary image
             src = os.path.join(placeholder_dir, data['placeholder'])
-            dst_name = f"products/{product.slug}_{data['placeholder']}"
-            dst = os.path.join(settings.MEDIA_ROOT, dst_name)
+            dst_name = f"{product.slug}_{data['placeholder']}"
 
             if os.path.exists(src):
-                shutil.copy2(src, dst)
-                ProductImage.objects.create(
-                    product=product,
-                    image=dst_name,
-                    is_primary=True,
-                    color=data['primary_color'],
-                    alt_text=f'{product.name} – {data["primary_color"]} variant',
-                    order=0
-                )
+                with open(src, 'rb') as f:
+                    product_image = ProductImage(
+                        product=product,
+                        is_primary=True,
+                        color=data['primary_color'],
+                        alt_text=f'{product.name} – {data["primary_color"]} variant',
+                        order=0
+                    )
+                    product_image.image.save(dst_name, File(f))
+                    product_image.save()
                 self.stdout.write(f'  ✅ Created: {product.name} (Primary: {data["primary_color"]})')
             else:
                 self.stdout.write(
@@ -153,19 +147,19 @@ class Command(BaseCommand):
             # 2. Add extra/variant images
             for order_idx, extra in enumerate(data['extra_images'], start=1):
                 src_extra = os.path.join(placeholder_dir, extra['file'])
-                dst_extra_name = f"products/{product.slug}_{extra['file']}"
-                dst_extra = os.path.join(settings.MEDIA_ROOT, dst_extra_name)
+                dst_extra_name = f"{product.slug}_{extra['file']}"
 
                 if os.path.exists(src_extra):
-                    shutil.copy2(src_extra, dst_extra)
-                    ProductImage.objects.create(
-                        product=product,
-                        image=dst_extra_name,
-                        is_primary=False,
-                        color=extra['color'],
-                        alt_text=f'{product.name} – {extra["color"]} variant',
-                        order=order_idx
-                    )
+                    with open(src_extra, 'rb') as f:
+                        product_image = ProductImage(
+                            product=product,
+                            is_primary=False,
+                            color=extra['color'],
+                            alt_text=f'{product.name} – {extra["color"]} variant',
+                            order=order_idx
+                        )
+                        product_image.image.save(dst_extra_name, File(f))
+                        product_image.save()
                     self.stdout.write(f'     └─ Added extra variant image for: {extra["color"]}')
 
         self.stdout.write(self.style.SUCCESS('\n✨ Done! Visit http://127.0.0.1:8000 to see your store.'))
