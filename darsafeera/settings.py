@@ -114,6 +114,8 @@ if CLOUDINARY_URL:
     CLOUDINARY_STORAGE = {
         'PREFIX': 'darsafeera'
     }
+    # Your Cloudinary cloud name is drh8fjiwq
+    MEDIA_URL = 'https://res.cloudinary.com/drh8fjiwq/image/upload/darsafeera/'
 else:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = BASE_DIR / 'media'
