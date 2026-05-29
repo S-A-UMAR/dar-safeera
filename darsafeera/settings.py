@@ -8,10 +8,17 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-dev-key-change-in-production')
+
+# In production (VERCEL=1) DEBUG must be False
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
+
+# Allow all Vercel preview/production domains automatically
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
-if os.getenv('VERCEL') == '1':
-    ALLOWED_HOSTS.append('.vercel.app')
+ALLOWED_HOSTS += ['.vercel.app', 'localhost', '127.0.0.1']
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.vercel.app',
+]
 
 INSTALLED_APPS = [
     'jazzmin',
@@ -59,6 +66,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'darsafeera.wsgi.application'
 
+# ── Database ──────────────────────────────────────────────────────────────────
+# Uses SQLite locally; switches to Neon Postgres when DATABASE_URL is set
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -66,8 +75,12 @@ DATABASES = {
     }
 }
 
-if os.getenv('DATABASE_URL'):
-    DATABASES['default'] = dj_database_url.config(
+DATABASE_URL = os.getenv('DATABASE_URL')
+if DATABASE_URL:
+    # Strip channel_binding param that older psycopg2 doesn't support
+    DATABASE_URL = DATABASE_URL.replace('&channel_binding=require', '').replace('?channel_binding=require&', '?').replace('?channel_binding=require', '')
+    DATABASES['default'] = dj_database_url.parse(
+        DATABASE_URL,
         conn_max_age=600,
         conn_health_checks=True,
     )
@@ -84,31 +97,32 @@ TIME_ZONE = 'Africa/Lagos'
 USE_I18N = True
 USE_TZ = True
 
+# ── Static Files (WhiteNoise serves them on Vercel) ───────────────────────────
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static']
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Cloudinary Integration for Media assets in production
+# ── Media Files (Cloudinary in production) ────────────────────────────────────
 CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')
 if CLOUDINARY_URL:
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     CLOUDINARY_STORAGE = {
         'PREFIX': 'darsafeera'
     }
-    MEDIA_URL = '/media/'
+    MEDIA_URL = 'https://res.cloudinary.com/'
 else:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Brand settings (override in .env)
+# ── Brand Settings ────────────────────────────────────────────────────────────
 WHATSAPP_NUMBER = os.getenv('WHATSAPP_NUMBER', '2347068886422')
 INSTAGRAM_HANDLE = os.getenv('INSTAGRAM_HANDLE', 'safeeraabba')
 CONTACT_EMAIL = os.getenv('CONTACT_EMAIL', 'contact.safeeraabba@gmail.com')
 
-# ── Jazzmin Admin Theme ──────────────────────────────────────────────────────
+# ── Jazzmin Admin Theme ───────────────────────────────────────────────────────
 JAZZMIN_SETTINGS = {
     "site_title": "Dar Safeera Admin",
     "site_header": "Dar Safeera",

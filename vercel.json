@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "buildCommand": "bash build.sh",
   "builds": [
     {
       "src": "darsafeera/wsgi.py",
@@ -11,13 +12,6 @@
     }
   ],
   "routes": [
-    {
-      "src": "/static/(.*)",
-      "headers": {
-        "cache-control": "public, max-age=31536000, immutable"
-      },
-      "dest": "staticfiles/$1"
-    },
     {
       "src": "/(.*)",
       "dest": "darsafeera/wsgi.py"
