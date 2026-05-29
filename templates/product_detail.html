@@ -15,7 +15,7 @@
       <div class="product-gallery">
         <div class="product-gallery__main-wrapper">
           {% if images %}
-            <img src="{{ product.get_primary_image.image.url }}?v={{ product.updated_at.timestamp }}" alt="{{ product.get_primary_image.alt_text }}" class="product-gallery__main" id="main-product-image" />
+            <img src="{{ product.get_primary_image.url }}?v={{ product.updated_at.timestamp }}" alt="{{ product.get_primary_image.alt_text }}" class="product-gallery__main" id="main-product-image" />
           {% else %}
             <div class="product-gallery__placeholder">
               <span>Dar Safeera</span>
@@ -26,8 +26,8 @@
         {% if images.count > 1 %}
           <div class="product-gallery__thumbnails" id="product-thumbnails">
             {% for img in images %}
-              <button class="product-gallery__thumb {% if img.is_primary %}product-gallery__thumb--active{% endif %}" data-full-src="{{ img.image.url }}" data-color="{{ img.color|lower }}" aria-label="View product image {{ forloop.counter }}">
-                <img src="{{ img.image.url }}?v={{ product.updated_at.timestamp }}" alt="{{ img.alt_text }}" />
+              <button class="product-gallery__thumb {% if img.is_primary %}product-gallery__thumb--active{% endif %}" data-full-src="{{ img.url }}" data-color="{{ img.color|lower }}" aria-label="View product image {{ forloop.counter }}">
+                <img src="{{ img.url }}?v={{ product.updated_at.timestamp }}" alt="{{ img.alt_text }}" />
               </button>
             {% endfor %}
           </div>
@@ -117,7 +117,7 @@
               <a href="{% url 'product_detail' rel.slug %}" class="product-card__img-link">
                 <div class="product-card__img-wrapper">
                   {% if rel.get_primary_image %}
-                    <img src="{{ rel.get_primary_image.image.url }}?v={{ rel.updated_at.timestamp }}" alt="{{ rel.get_primary_image.alt_text }}" class="product-card__img" loading="lazy" />
+                    <img src="{{ rel.get_primary_image.url }}?v={{ rel.updated_at.timestamp }}" alt="{{ rel.get_primary_image.alt_text }}" class="product-card__img" loading="lazy" />
                   {% else %}
                     <div class="product-card__img-placeholder">
                       <span>Dar Safeera</span>

@@ -112,9 +112,9 @@ CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')
 if CLOUDINARY_URL:
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     CLOUDINARY_STORAGE = {
-        'PREFIX': 'darsafeera'
+        'PREFIX': 'darsafeera',
+        'CLOUD_NAME': 'drh8fjiwq'
     }
-    # Your Cloudinary cloud name is drh8fjiwq
     MEDIA_URL = 'https://res.cloudinary.com/drh8fjiwq/image/upload/darsafeera/'
 else:
     MEDIA_URL = '/media/'

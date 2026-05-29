@@ -77,6 +77,17 @@ class ProductImage(models.Model):
     class Meta:
         ordering = ['-is_primary', 'order']
 
+    @property
+    def url(self):
+        """Return the full URL for the image, handling Cloudinary correctly."""
+        from django.conf import settings
+        import os
+        if settings.CLOUDINARY_URL:
+            # Cloudinary: construct full URL manually for Vercel
+            return f"https://res.cloudinary.com/drh8fjiwq/image/upload/darsafeera/products/{os.path.basename(self.image.name)}"
+        # Local: use normal MEDIA_URL
+        return self.image.url
+
     def save(self, *args, **kwargs):
         # Ensure only one primary per product
         if self.is_primary:
