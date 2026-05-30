@@ -79,14 +79,13 @@ class ProductImage(models.Model):
 
     @property
     def url(self):
-        """Return the full URL for the image, handling Cloudinary correctly."""
-        from django.conf import settings
-        import os
-        if settings.CLOUDINARY_URL:
-            # Cloudinary: construct full URL manually for Vercel
-            return f"https://res.cloudinary.com/drh8fjiwq/image/upload/darsafeera/products/{os.path.basename(self.image.name)}"
-        # Local: use normal MEDIA_URL
-        return self.image.url
+        """Return the storage-backed URL, regardless of local or Cloudinary storage."""
+        if not self.image:
+            return ''
+        try:
+            return self.image.url
+        except Exception:
+            return ''
 
     def save(self, *args, **kwargs):
         # Ensure only one primary per product

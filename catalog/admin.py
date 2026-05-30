@@ -30,11 +30,11 @@ class ProductImageInline(admin.TabularInline):
     ordering = ('-is_primary', 'order')
 
     def image_preview(self, obj):
-        if obj.image:
+        if obj.image and obj.url:
             return format_html(
                 '<img src="{}" style="height:80px;width:60px;object-fit:cover;'
                 'border-radius:6px;border:1px solid #333;" />',
-                obj.image.url,
+                obj.url,
             )
         return mark_safe('<span style="color:#888;font-size:11px;">No image yet</span>')
     image_preview.short_description = 'Preview'
@@ -90,11 +90,11 @@ class ProductAdmin(admin.ModelAdmin):
 
     def thumbnail(self, obj):
         img = obj.get_primary_image()
-        if img and img.image:
+        if img and img.image and img.url:
             return format_html(
                 '<img src="{}" style="height:56px;width:44px;object-fit:cover;'
                 'border-radius:6px;border:1px solid #2e2e30;" />',
-                img.image.url,
+                img.url,
             )
         return mark_safe(
             '<div style="height:56px;width:44px;background:#1e1e1e;border-radius:6px;'
@@ -167,11 +167,11 @@ class ProductImageAdmin(admin.ModelAdmin):
     search_fields = ('product__name', 'alt_text')
 
     def image_preview(self, obj):
-        if obj.image:
+        if obj.image and obj.url:
             return format_html(
                 '<img src="{}" style="height:64px;width:50px;object-fit:cover;'
                 'border-radius:6px;border:1px solid #333;" />',
-                obj.image.url,
+                obj.url,
             )
         return '—'
     image_preview.short_description = 'Preview'
